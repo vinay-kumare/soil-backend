@@ -5,6 +5,11 @@ from PIL import Image
 import io
 from flask_cors import CORS
 
+import gdown
+url = "https://drive.google.com/file/d/1IEkKt5iD3hqyycLDZwFHqBxlFn4dnuiK/view?usp=drive_link"
+output = "soil_model.h5"
+gdown.download(url, output, quiet=False)
+
 app = Flask(__name__)
 CORS(app)
 
