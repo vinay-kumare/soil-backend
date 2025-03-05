@@ -31,18 +31,14 @@ soil_info = {
 # Load the pre-trained CNN model
 model = load_model('soil_model.h5')
 
-# Define the image preprocessing function
-
-
+# Image preprocessing function
 def preprocess_image(image):
     image = image.resize((200, 200))  # Resize to match model input size
     image = np.array(image) / 255.0  # Normalize pixel values
     image = np.expand_dims(image, axis=0)  # Add batch dimension
     return image
 
-# Define the prediction route
-
-
+# Prediction route
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'file' not in request.files:
@@ -64,7 +60,6 @@ def predict():
         # Get soil information
         soil_details = soil_info[predicted_class]
 
-        # Return the result with additional details
         return jsonify({
             'soil_type': soil_details['soil_type'],
             'description': soil_details['description'],
@@ -72,6 +67,6 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
+# Run the app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=10000, debug=False)
